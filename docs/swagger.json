@@ -1,0 +1,51 @@
+swagger: "2.0"
+info:
+  description: "USD Rate Application with open.er-api.com"
+  version: "0.1.0"
+  title: "USD Rate application"
+tags:
+- name: "rate"
+  description: "Get the current USD to UAH rate"
+- name: "subscription"
+  description: "Subscribe to USD rate"
+schemes:
+- "http"
+paths:
+  /rate:
+    get:
+      tags:
+      - "rate"
+      summary: "Get the current USD to UAH rate"
+      description: "Get the current USD to UAH rate using open.er-api.com/ with public АРІ"
+      operationId: "rate"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Returns current rate USD to UAH"
+          schema:
+            type: "number"
+        "400":
+          description: "Invalid status value"
+  /subscribe:
+    post:
+      tags:
+      - "subscription"
+      summary: "Sign up for an email to receive the current course"
+      description: "The request should check whether this e-mail address is not in the current database and, if it is not, write it down."
+      operationId: "subscribe"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "email"
+        in: "formData"
+        description: "email"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Success"
+        "409":
+          description: "Already exists"
